@@ -13,7 +13,7 @@ export interface FormatterOptions {
  * Create a set of formatters based on user preferences
  */
 export function createFormatters(options: FormatterOptions = {}) {
-	const { timeFormat = '12h', timezone } = options;
+	 const { timeFormat = '12h', timezone = 'Europe/Berlin' } = options;
 	const use12Hour = timeFormat === '12h';
 
 	const formatDate = (date: Date): string => {
