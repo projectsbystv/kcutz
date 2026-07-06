@@ -7,6 +7,7 @@ import { json, error } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { createCalendarEvent, cancelCalendarEvent, getValidAccessToken } from '$lib/server/google-calendar';
 import { sendRescheduleEmail, sendAdminRescheduleNotification, getEmailTemplates, isEmailEnabled } from '$lib/server/email';
+import { toLocalDateTime } from '$lib/server/calendar-time';
 
 export const POST: RequestHandler = async ({ request, platform }) => {
 	const env = platform?.env;
@@ -127,11 +128,11 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 				summary: `${originalBooking.event_name} with ${originalBooking.attendee_name}`,
 				description: `${originalBooking.event_description || ''}\n\nAttendee: ${originalBooking.attendee_name} (${originalBooking.attendee_email})${notes ? `\n\nNotes from attendee:\n${notes}` : ''}`,
 				start: {
-					dateTime: newStartDateTime.toISOString(),
+					dateTime: toLocalDateTime(newStartDateTime, 'Europe/Berlin'),
 					timeZone: 'Europe/Berlin'
 				},
 				end: {
-					dateTime: newEndDateTime.toISOString(),
+					dateTime: toLocalDateTime(newEndDateTime, 'Europe/Berlin'),
 					timeZone: 'Europe/Berlin'
 				},
 				attendees: [

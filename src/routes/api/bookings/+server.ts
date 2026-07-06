@@ -9,6 +9,7 @@ import { createCalendarEvent, getValidAccessToken } from '$lib/server/google-cal
 import { createOutlookCalendarEvent, getValidOutlookAccessToken } from '$lib/server/outlook-calendar';
 import { sendBookingEmail, sendAdminNotificationEmail, getEmailTemplates, isEmailEnabled, type EmailTemplateType } from '$lib/server/email';
 import { isValidEmail, validateLength, validateFields, MAX_LENGTHS } from '$lib/server/validation';
+import { toLocalDateTime } from '$lib/server/calendar-time';
 
 export const POST: RequestHandler = async ({ request, platform }) => {
 	const env = platform?.env;
@@ -149,11 +150,11 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 					summary: `${eventType.name} with ${attendeeName}`,
 					description: `${eventType.description || ''}\n\nAttendee: ${attendeeName} (${attendeeEmail})${notes ? `\n\nNotes from attendee:\n${notes}` : ''}`,
 					start: {
-						dateTime: startDateTime.toISOString(),
+						dateTime: toLocalDateTime(startDateTime, 'Europe/Berlin'),
 						timeZone: 'Europe/Berlin'
 					},
 					end: {
-						dateTime: endDateTime.toISOString(),
+						dateTime: toLocalDateTime(endDateTime, 'Europe/Berlin'),
 						timeZone: 'Europe/Berlin'
 					},
 					attendees: [

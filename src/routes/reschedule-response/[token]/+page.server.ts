@@ -7,6 +7,7 @@ import { error, redirect, fail } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
 import { createCalendarEvent, cancelCalendarEvent, getValidAccessToken } from '$lib/server/google-calendar';
 import { sendAdminRescheduleNotification, sendAdminCancellationNotification } from '$lib/server/email';
+import { toLocalDateTime } from '$lib/server/calendar-time';
 
 export const load: PageServerLoad = async ({ params, url, platform }) => {
 	const db = platform?.env?.DB;
@@ -159,10 +160,17 @@ export const actions: Actions = {
 				const calendarEvent = await createCalendarEvent(accessToken, {
 					summary: `${proposal.event_name} with ${proposal.attendee_name}`,
 					description: proposal.attendee_notes || '',
-					startTime: proposal.proposed_start_time,
-					endTime: proposal.proposed_end_time,
-					attendeeEmail: proposal.attendee_email,
-					hostEmail: proposal.host_email
+					start: {
+						dateTime: toLocalDateTime(new Date(proposal.proposed_start_time), 'Europe/Berlin'),
+						timeZone: 'Europe/Berlin'
+					},
+					end: {
+						dateTime: toLocalDateTime(new Date(proposal.proposed_end_time), 'Europe/Berlin'),
+						timeZone: 'Europe/Berlin'
+					},
+					attendees: [
+						{ email: proposal.attendee_email }
+					]
 				});
 
 				newGoogleEventId = calendarEvent.id;

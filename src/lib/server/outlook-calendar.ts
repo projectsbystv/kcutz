@@ -3,6 +3,8 @@
  * Uses Microsoft Graph API directly for Cloudflare Workers compatibility
  */
 
+import { toLocalDateTime } from './calendar-time';
+
 export interface OutlookCalendarEvent {
 	id: string;
 	subject: string;
@@ -175,12 +177,12 @@ export async function createOutlookCalendarEvent(
 			content: event.description || ''
 		},
 		start: {
-			dateTime: event.startTime.replace('Z', ''),
-			timeZone: 'UTC'
+			dateTime: toLocalDateTime(new Date(event.startTime), 'Europe/Berlin'),
+			timeZone: 'Europe/Berlin'
 		},
 		end: {
-			dateTime: event.endTime.replace('Z', ''),
-			timeZone: 'UTC'
+			dateTime: toLocalDateTime(new Date(event.endTime), 'Europe/Berlin'),
+			timeZone: 'Europe/Berlin'
 		},
 		attendees: [
 			{
