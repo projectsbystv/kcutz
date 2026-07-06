@@ -157,6 +157,7 @@ export const POST = async (event: RequestEvent) => {
 							appUrl: env.APP_URL || '',
 							customMessage: message || template?.custom_message || null,
 							timeFormat,
+							timezone: 'Europe/Berlin',
 							brandColor: booking.brand_color || undefined
 						},
 						{

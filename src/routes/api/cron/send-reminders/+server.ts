@@ -130,6 +130,7 @@ export const GET = async ({ url, platform }: RequestEvent) => {
 							appUrl: env.APP_URL || '',
 							customMessage: template?.custom_message,
 							timeFormat,
+							timezone: 'Europe/Berlin',
 							brandColor: email.brand_color || undefined
 						},
 						email.template_type as 'reminder_24h' | 'reminder_1h' | 'reminder_30m',

@@ -219,7 +219,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 							hostContactEmail: originalBooking.contact_email || undefined,
 							appUrl: env.APP_URL || '',
 							timeFormat,
-							timezone: timezone || 'UTC',
+							timezone: timezone || 'Europe/Berlin',
 							brandColor: originalBooking.brand_color || undefined,
 							attendeeNotes: originalBooking.attendee_notes
 						},
@@ -250,7 +250,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 							hostEmail: originalBooking.host_email,
 							appUrl: env.APP_URL || '',
 							timeFormat,
-							timezone: timezone || 'UTC',
+							timezone: timezone || 'Europe/Berlin',
 							brandColor: originalBooking.brand_color || undefined,
 							attendeeNotes: originalBooking.attendee_notes
 						},
