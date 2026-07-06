@@ -1,5 +1,7 @@
 /**
  * Email date/time formatters
+ * German formatting for the barbershop: 24h times as "15:00 Uhr", German dates,
+ * no timezone abbreviation (all times are Europe/Berlin wall-clock time).
  */
 
 import type { BookingEmailData } from './types';
@@ -13,9 +15,9 @@ export interface EmailFormatters {
 /**
  * Create formatters based on user preferences
  */
-export function createEmailFormatters(timeFormat: '12h' | '24h' = '12h', timezone?: string): EmailFormatters {
+export function createEmailFormatters(_timeFormat: '12h' | '24h' = '24h', timezone?: string): EmailFormatters {
 	const formatDate = (date: Date): string => {
-		return new Intl.DateTimeFormat('en-US', {
+		return new Intl.DateTimeFormat('de-DE', {
 			weekday: 'long',
 			year: 'numeric',
 			month: 'long',
@@ -25,27 +27,17 @@ export function createEmailFormatters(timeFormat: '12h' | '24h' = '12h', timezon
 	};
 
 	const formatTime = (date: Date): string => {
-		return new Intl.DateTimeFormat('en-US', {
-			hour: 'numeric',
+		const time = new Intl.DateTimeFormat('de-DE', {
+			hour: '2-digit',
 			minute: '2-digit',
-			hour12: timeFormat === '12h',
-			timeZoneName: 'short',
+			hour12: false,
 			timeZone: timezone
 		}).format(date);
+		return `${time} Uhr`;
 	};
 
 	const formatDateTime = (date: Date): string => {
-		return new Intl.DateTimeFormat('en-US', {
-			weekday: 'long',
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric',
-			hour: 'numeric',
-			minute: '2-digit',
-			hour12: timeFormat === '12h',
-			timeZoneName: 'short',
-			timeZone: timezone
-		}).format(date);
+		return `${formatDate(date)}, ${formatTime(date)}`;
 	};
 
 	return { formatDate, formatTime, formatDateTime };
@@ -56,21 +48,22 @@ export function createEmailFormatters(timeFormat: '12h' | '24h' = '12h', timezon
  */
 export function replaceSubjectVariables(subject: string, data: BookingEmailData): string {
 	const formatDate = (date: Date) => {
-		return new Intl.DateTimeFormat('en-US', {
+		return new Intl.DateTimeFormat('de-DE', {
 			weekday: 'short',
-			month: 'short',
 			day: 'numeric',
+			month: 'short',
 			timeZone: data.timezone
 		}).format(date);
 	};
 
 	const formatTime = (date: Date) => {
-		return new Intl.DateTimeFormat('en-US', {
-			hour: 'numeric',
+		const time = new Intl.DateTimeFormat('de-DE', {
+			hour: '2-digit',
 			minute: '2-digit',
-			hour12: true,
+			hour12: false,
 			timeZone: data.timezone
 		}).format(date);
+		return `${time} Uhr`;
 	};
 
 	return subject
