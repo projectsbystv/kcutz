@@ -21,7 +21,7 @@ export function createEmailFormatters(timeFormat: '12h' | '24h' = '12h', timezon
 			month: 'long',
 			day: 'numeric',
 			timeZone: timezone
-		}).format(date);
+		}).format(new Date(date));
 	};
 
 	const formatTime = (date: Date): string => {
@@ -31,7 +31,7 @@ export function createEmailFormatters(timeFormat: '12h' | '24h' = '12h', timezon
 			hour12: timeFormat === '12h',
 			timeZoneName: 'short',
 			timeZone: timezone
-		}).format(date);
+		}).format(new Date(date));
 	};
 
 	const formatDateTime = (date: Date): string => {
@@ -45,7 +45,7 @@ export function createEmailFormatters(timeFormat: '12h' | '24h' = '12h', timezon
 			hour12: timeFormat === '12h',
 			timeZoneName: 'short',
 			timeZone: timezone
-		}).format(date);
+		}).format(new Date(date));
 	};
 
 	return { formatDate, formatTime, formatDateTime };
