@@ -150,11 +150,11 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 					description: `${eventType.description || ''}\n\nAttendee: ${attendeeName} (${attendeeEmail})${notes ? `\n\nNotes from attendee:\n${notes}` : ''}`,
 					start: {
 						dateTime: startDateTime.toISOString(),
-						timeZone: 'UTC'
+						timeZone: 'Europe/Berlin'
 					},
 					end: {
 						dateTime: endDateTime.toISOString(),
-						timeZone: 'UTC'
+						timeZone: 'Europe/Berlin'
 					},
 					attendees: [
 						{ email: attendeeEmail }
