@@ -229,6 +229,37 @@ export async function updateCalendarEvent(
 }
 
 /**
+ * Get a single calendar event.
+ * Returns null if the event no longer exists (deleted in Google Calendar).
+ * Note: events deleted via the Google Calendar UI usually still exist with status 'cancelled'.
+ */
+export async function getCalendarEvent(
+	accessToken: string,
+	eventId: string,
+	calendarId: string = 'primary'
+): Promise<CalendarEvent | null> {
+	const response = await fetch(
+		`https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events/${eventId}`,
+		{
+			headers: {
+				Authorization: `Bearer ${accessToken}`
+			}
+		}
+	);
+
+	if (response.status === 404 || response.status === 410) {
+		return null;
+	}
+
+	if (!response.ok) {
+		const error = await response.text();
+		throw new Error(`Failed to get calendar event: ${error}`);
+	}
+
+	return response.json();
+}
+
+/**
  * Cancel a calendar event (for cancellations)
  */
 export async function cancelCalendarEvent(

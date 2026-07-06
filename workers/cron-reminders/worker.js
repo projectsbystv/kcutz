@@ -5,14 +5,21 @@
 
 export default {
 	async scheduled(event, env) {
-		const url = `${env.APP_URL}/api/cron/send-reminders?secret=${env.CRON_SECRET}`;
+		const endpoints = [
+			{ name: 'send-reminders', path: '/api/cron/send-reminders' },
+			{ name: 'sync-cancelled-events', path: '/api/cron/sync-cancelled-events' }
+		];
 
-		try {
-			const response = await fetch(url);
-			const result = await response.json();
-			console.log('Cron reminder result:', result);
-		} catch (err) {
-			console.error('Cron reminder failed:', err);
+		for (const endpoint of endpoints) {
+			const url = `${env.APP_URL}${endpoint.path}?secret=${env.CRON_SECRET}`;
+
+			try {
+				const response = await fetch(url);
+				const result = await response.json();
+				console.log(`Cron ${endpoint.name} result:`, result);
+			} catch (err) {
+				console.error(`Cron ${endpoint.name} failed:`, err);
+			}
 		}
 	}
 };
