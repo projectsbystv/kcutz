@@ -158,13 +158,8 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 					},
 					attendees: [
 						{ email: attendeeEmail }
-					],
-					conferenceData: {
-						createRequest: {
-							requestId: crypto.randomUUID(),
-							conferenceSolutionKey: { type: 'hangoutsMeet' }
-						}
-					}
+					]
+					
 				});
 
 				googleEventId = calendarEvent.id;
