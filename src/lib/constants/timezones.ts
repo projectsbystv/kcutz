@@ -148,7 +148,7 @@ export function getTimezoneLabel(tz: string): string {
  */
 export function detectTimezone(): string {
 	
-		return 'Europe/Amsterdam';
+		return 'Europe/Berlin';
 	
 }
 
