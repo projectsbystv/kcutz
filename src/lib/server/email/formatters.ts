@@ -13,7 +13,7 @@ export interface EmailFormatters {
 /**
  * Create formatters based on user preferences
  */
-export function createEmailFormatters(timeFormat: '12h' | '24h' = '12h', timezone?: string): EmailFormatters {
+export function createEmailFormatters(timeFormat: '12h' | '24h' = '12h', timezone: string = 'Europe/Berlin'): EmailFormatters {
 	const formatDate = (date: Date): string => {
 		return new Intl.DateTimeFormat('en-US', {
 			weekday: 'long',
