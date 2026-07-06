@@ -185,6 +185,7 @@ export const actions: Actions = {
 									appUrl: env.APP_URL || '',
 									customMessage: reason || template?.custom_message,
 									timeFormat,
+									timezone: 'Europe/Berlin',
 									brandColor: fullBooking.brand_color || undefined
 								},
 								{
@@ -214,6 +215,7 @@ export const actions: Actions = {
 									appUrl: env.APP_URL || '',
 									customMessage: reason,
 									timeFormat,
+									timezone: 'Europe/Berlin',
 									brandColor: fullBooking.brand_color || undefined
 								},
 								fullBooking.host_email,
