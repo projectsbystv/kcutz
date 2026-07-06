@@ -173,7 +173,7 @@ export async function createCalendarEvent(
 	calendarId: string = 'primary'
 ): Promise<CalendarEvent> {
 	const response = await fetch(
-		`https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?conferenceDataVersion=1`,
+		`https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?conferenceDataVersion=1&sendUpdates=none`,
 		{
 			method: 'POST',
 			headers: {
@@ -181,7 +181,7 @@ export async function createCalendarEvent(
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(event),
-			sendUpdates: 'none'
+			
 		}
 	);
 
