@@ -59,7 +59,8 @@ export function replaceSubjectVariables(subject: string, data: BookingEmailData)
 		return new Intl.DateTimeFormat('en-US', {
 			weekday: 'short',
 			month: 'short',
-			day: 'numeric'
+			day: 'numeric',
+			timeZone: 'Europe/Berlin'
 		}).format(date);
 	};
 
@@ -67,7 +68,8 @@ export function replaceSubjectVariables(subject: string, data: BookingEmailData)
 		return new Intl.DateTimeFormat('en-US', {
 			hour: 'numeric',
 			minute: '2-digit',
-			hour12: true
+			hour12: true,
+			timeZone: 'Europe/Berlin'
 		}).format(date);
 	};
 
