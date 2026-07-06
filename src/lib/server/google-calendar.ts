@@ -180,7 +180,8 @@ export async function createCalendarEvent(
 				Authorization: `Bearer ${accessToken}`,
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify(event)
+			body: JSON.stringify(event),
+			sendUpdates: 'none'
 		}
 	);
 
