@@ -87,7 +87,7 @@ export async function sendBookingEmail(
 	const textBody = generateBookingEmailText(data);
 	const subject = customSubject
 		? replaceSubjectVariables(customSubject, data)
-		: `Meeting Confirmed: ${data.eventName} with ${data.hostName}`;
+		: `Appointment Confirmed: ${data.eventName} with ${data.hostName}`;
 
 	try {
 		await sendViaResend(config.apiKey, {
@@ -115,7 +115,7 @@ export async function sendCancellationEmail(
 	const htmlBody = generateCancellationEmail(data);
 	const subject = customSubject
 		? replaceSubjectVariables(customSubject, data)
-		: `Meeting Cancelled: ${data.eventName}`;
+		: `Appointment Cancelled: ${data.eventName}`;
 
 	try {
 		await sendViaResend(config.apiKey, {
@@ -142,7 +142,7 @@ export async function sendRescheduleEmail(
 	const htmlBody = generateRescheduleEmail(data);
 	const subject = customSubject
 		? replaceSubjectVariables(customSubject, data)
-		: `Meeting Rescheduled: ${data.eventName} with ${data.hostName}`;
+		: `Appointment Rescheduled: ${data.eventName} with ${data.hostName}`;
 
 	try {
 		await sendViaResend(config.apiKey, {

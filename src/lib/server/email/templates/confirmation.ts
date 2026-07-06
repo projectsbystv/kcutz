@@ -9,7 +9,8 @@ import {
 	generateMeetingDetailsCard,
 	generateYourMessageCard,
 	generateActionButton,
-	generateManagementLinks
+	generateManagementLinks,
+	BUSINESS_ADDRESS
 } from './base';
 
 /**
@@ -29,7 +30,7 @@ export function generateBookingEmail(data: BookingEmailData): string {
 				<path d="M5 13l4 4L19 7"></path>
 			</svg>
 		</div>
-		<h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700;">Meeting Confirmed!</h1>
+		<h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700;">Appointment Confirmed!</h1>
 	`;
 
 	const meetingLabel = data.meetingType === 'teams' ? 'Join Microsoft Teams Meeting' : 'Join Google Meet';
@@ -59,7 +60,7 @@ export function generateBookingEmail(data: BookingEmailData): string {
 			Hi <strong>${data.attendeeName}</strong>,
 		</p>
 		<p style="margin: 0 0 30px; color: #4b5563; font-size: 16px; line-height: 24px;">
-			Your meeting with <strong>${data.hostName}</strong> has been confirmed. We're looking forward to speaking with you!
+			Your appointment with <strong>${data.hostName}</strong> has been confirmed. We're looking forward to seeing you!
 		</p>
 
 		${meetingDetails}
@@ -73,11 +74,11 @@ export function generateBookingEmail(data: BookingEmailData): string {
 	`;
 
 	return generateBaseEmail({
-		title: 'Meeting Confirmed',
+		title: 'Appointment Confirmed',
 		headerGradient: brandColor,
 		headerContent,
 		bodyContent,
-		footerContent: `This is an automated email from ${data.hostName}'s meeting scheduler.`,
+		footerContent: `This is an automated email from ${data.hostName}'s appointment scheduler.`,
 		hostName: data.hostName
 	});
 }
@@ -93,16 +94,17 @@ export function generateBookingEmailText(data: BookingEmailData): string {
 	const rescheduleUrl = `${data.appUrl}/reschedule/${data.bookingId}`;
 
 	return `
-Meeting Confirmed!
+Appointment Confirmed!
 
 Hi ${data.attendeeName},
 
-Your meeting with ${data.hostName} has been confirmed. We're looking forward to speaking with you!
+Your appointment with ${data.hostName} has been confirmed. We're looking forward to seeing you!
 
-MEETING DETAILS
+APPOINTMENT DETAILS
 Event: ${data.eventName}
 ${data.eventDescription ? `Description: ${data.eventDescription}` : ''}
 Time: ${formatDateTime(data.startTime)} - ${formatDateTime(data.endTime)}
+Address: ${BUSINESS_ADDRESS}
 ${data.meetingUrl ? `Location: ${data.meetingUrl}` : ''}
 
 ${data.meetingUrl ? `Join Meeting: ${data.meetingUrl}` : ''}
@@ -114,7 +116,7 @@ Cancel: ${cancelUrl}
 If you need to make changes or have any questions, please reply to this email or contact ${contactEmail}.
 
 ---
-This is an automated email from ${data.hostName}'s meeting scheduler.
+This is an automated email from ${data.hostName}'s appointment scheduler.
 Powered by CloudMeet - https://github.com/dennisklappe/CloudMeet
 	`.trim();
 }

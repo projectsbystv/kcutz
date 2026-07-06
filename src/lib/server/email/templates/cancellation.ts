@@ -14,7 +14,7 @@ export function generateCancellationEmail(data: BookingEmailData): string {
 	const brandColor = data.brandColor || '#3b82f6';
 
 	const headerContent = `
-		<h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700;">Meeting Cancelled</h1>
+		<h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700;">Appointment Cancelled</h1>
 	`;
 
 	const customMessageSection = data.customMessage ? `
@@ -28,13 +28,13 @@ export function generateCancellationEmail(data: BookingEmailData): string {
 			Hi <strong>${data.attendeeName}</strong>,
 		</p>
 		<p style="margin: 0 0 30px; color: #4b5563; font-size: 16px; line-height: 24px;">
-			Your meeting with <strong>${data.hostName}</strong> has been cancelled.
+			Your appointment with <strong>${data.hostName}</strong> has been cancelled.
 		</p>
 		${customMessageSection}
 		<table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb; margin-bottom: 30px;">
 			<tr>
 				<td style="padding: 24px;">
-					<h2 style="margin: 0 0 16px; color: #111827; font-size: 18px; font-weight: 600; text-decoration: line-through;">Cancelled Meeting</h2>
+					<h2 style="margin: 0 0 16px; color: #111827; font-size: 18px; font-weight: 600; text-decoration: line-through;">Cancelled Appointment</h2>
 					<div style="margin-bottom: 12px;">
 						<div style="color: #6b7280; font-size: 14px; margin-bottom: 4px;">Event</div>
 						<div style="color: #111827; font-size: 16px; font-weight: 500;">${data.eventName}</div>
@@ -52,11 +52,11 @@ export function generateCancellationEmail(data: BookingEmailData): string {
 	`;
 
 	return generateBaseEmail({
-		title: 'Meeting Cancelled',
+		title: 'Appointment Cancelled',
 		headerGradient: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
 		headerContent,
 		bodyContent,
-		footerContent: `This is an automated email from ${data.hostName}'s meeting scheduler.`,
+		footerContent: `This is an automated email from ${data.hostName}'s appointment scheduler.`,
 		hostName: data.hostName
 	});
 }
@@ -84,7 +84,7 @@ export function generateAdminCancellationEmail(data: BookingEmailData): string {
 
 	const bodyContent = `
 		<p style="margin: 0 0 20px; color: #4b5563; font-size: 16px; line-height: 24px;">
-			A meeting has been cancelled.
+			An appointment has been cancelled.
 		</p>
 
 		<table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #fef2f2; border-radius: 8px; border: 1px solid #fecaca; margin-bottom: 30px;">

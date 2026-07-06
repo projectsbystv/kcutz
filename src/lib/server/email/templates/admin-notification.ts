@@ -28,7 +28,7 @@ export function generateAdminNotificationEmail(data: BookingEmailData): string {
 
 	const bodyContent = `
 		<p style="margin: 0 0 20px; color: #4b5563; font-size: 16px; line-height: 24px;">
-			You have a new meeting booked!
+			You have a new appointment booked!
 		</p>
 
 		<table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb; margin-bottom: 30px;">

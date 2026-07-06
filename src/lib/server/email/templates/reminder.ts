@@ -4,7 +4,7 @@
 
 import type { BookingEmailData } from '../types';
 import { createEmailFormatters } from '../formatters';
-import { generateBaseEmail, generateActionButton, generateManagementLinks } from './base';
+import { generateBaseEmail, generateActionButton, generateManagementLinks, BUSINESS_ADDRESS } from './base';
 
 type ReminderType = 'reminder_24h' | 'reminder_1h' | 'reminder_30m';
 
@@ -34,7 +34,7 @@ export function generateReminderEmail(data: BookingEmailData, reminderType: Remi
 	const timeLabel = TIME_LABELS[reminderType];
 
 	const headerContent = `
-		<h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700;">Meeting ${timeLabel}!</h1>
+		<h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700;">Appointment ${timeLabel}!</h1>
 	`;
 
 	const customMessageSection = data.customMessage ? `
@@ -55,7 +55,7 @@ export function generateReminderEmail(data: BookingEmailData, reminderType: Remi
 			Hi <strong>${data.attendeeName}</strong>,
 		</p>
 		<p style="margin: 0 0 30px; color: #4b5563; font-size: 16px; line-height: 24px;">
-			This is a friendly reminder about your upcoming meeting with <strong>${data.hostName}</strong>.
+			This is a friendly reminder about your upcoming appointment with <strong>${data.hostName}</strong>.
 		</p>
 		${customMessageSection}
 
@@ -65,6 +65,7 @@ export function generateReminderEmail(data: BookingEmailData, reminderType: Remi
 					<div style="color: ${colors.text}; font-size: 14px; margin-bottom: 8px; font-weight: 600;">${data.eventName}</div>
 					<div style="color: ${colors.text}; font-size: 20px; font-weight: 700;">${formatDate(data.startTime)}</div>
 					<div style="color: ${colors.text}; font-size: 18px; margin-top: 4px;">${formatTime(data.startTime)} - ${formatTime(data.endTime)}</div>
+					<div style="color: ${colors.text}; font-size: 14px; margin-top: 8px;">${BUSINESS_ADDRESS}</div>
 				</td>
 			</tr>
 		</table>
@@ -74,11 +75,11 @@ export function generateReminderEmail(data: BookingEmailData, reminderType: Remi
 	`;
 
 	return generateBaseEmail({
-		title: 'Meeting Reminder',
+		title: 'Appointment Reminder',
 		headerGradient: colors.gradient,
 		headerContent,
 		bodyContent,
-		footerContent: `This is an automated email from ${data.hostName}'s meeting scheduler.`,
+		footerContent: `This is an automated email from ${data.hostName}'s appointment scheduler.`,
 		hostName: data.hostName
 	});
 }

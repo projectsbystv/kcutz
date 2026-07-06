@@ -4,7 +4,7 @@
 
 import type { RescheduleEmailData } from '../types';
 import { createEmailFormatters } from '../formatters';
-import { generateBaseEmail, generateActionButton, generateManagementLinks, generateYourMessageCard, generateAttendeeNotesCard } from './base';
+import { generateBaseEmail, generateActionButton, generateManagementLinks, generateYourMessageCard, generateAttendeeNotesCard, BUSINESS_ADDRESS } from './base';
 
 /**
  * Generate HTML email for reschedule
@@ -17,7 +17,7 @@ export function generateRescheduleEmail(data: RescheduleEmailData): string {
 	const rescheduleUrl = `${data.appUrl}/reschedule/${data.bookingId}`;
 
 	const headerContent = `
-		<h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700;">Meeting Rescheduled</h1>
+		<h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700;">Appointment Rescheduled</h1>
 	`;
 
 	const customMessageSection = data.customMessage ? `
@@ -43,7 +43,7 @@ export function generateRescheduleEmail(data: RescheduleEmailData): string {
 			Hi <strong>${data.attendeeName}</strong>,
 		</p>
 		<p style="margin: 0 0 30px; color: #4b5563; font-size: 16px; line-height: 24px;">
-			Your meeting with <strong>${data.hostName}</strong> has been rescheduled to a new time.
+			Your appointment with <strong>${data.hostName}</strong> has been rescheduled to a new time.
 		</p>
 		${customMessageSection}
 		${attendeeNotesSection}
@@ -64,6 +64,7 @@ export function generateRescheduleEmail(data: RescheduleEmailData): string {
 				<td style="padding: 16px;">
 					<div style="color: #166534; font-size: 12px; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">New Time</div>
 					<div style="color: #166534; font-size: 16px; font-weight: 600;">${formatDate(data.startTime)} at ${formatTime(data.startTime)}</div>
+					<div style="color: #166534; font-size: 14px; margin-top: 8px;">${BUSINESS_ADDRESS}</div>
 				</td>
 			</tr>
 		</table>
@@ -73,11 +74,11 @@ export function generateRescheduleEmail(data: RescheduleEmailData): string {
 	`;
 
 	return generateBaseEmail({
-		title: 'Meeting Rescheduled',
+		title: 'Appointment Rescheduled',
 		headerGradient: 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)',
 		headerContent,
 		bodyContent,
-		footerContent: `This is an automated email from ${data.hostName}'s meeting scheduler.`,
+		footerContent: `This is an automated email from ${data.hostName}'s appointment scheduler.`,
 		hostName: data.hostName
 	});
 }
@@ -104,7 +105,7 @@ export function generateAdminRescheduleEmail(data: RescheduleEmailData): string 
 
 	const bodyContent = `
 		<p style="margin: 0 0 20px; color: #4b5563; font-size: 16px; line-height: 24px;">
-			A meeting has been rescheduled.
+			An appointment has been rescheduled.
 		</p>
 
 		<table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb; margin-bottom: 20px;">

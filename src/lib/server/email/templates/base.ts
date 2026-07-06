@@ -2,6 +2,9 @@
  * Base email template structure
  */
 
+/** Physical location of the shop, shown in customer-facing emails */
+export const BUSINESS_ADDRESS = 'Wandsbeker Chaussee 19, 22089 Hamburg';
+
 export interface BaseTemplateOptions {
 	title: string;
 	headerGradient: string;
@@ -79,7 +82,7 @@ export function generateMeetingDetailsCard(options: {
 <table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb; margin-bottom: 30px;">
 	<tr>
 		<td style="padding: 24px;">
-			<h2 style="margin: 0 0 16px; color: #111827; font-size: 18px; font-weight: 600;">Meeting Details</h2>
+			<h2 style="margin: 0 0 16px; color: #111827; font-size: 18px; font-weight: 600;">Appointment Details</h2>
 
 			<div style="margin-bottom: 12px;">
 				<div style="color: #6b7280; font-size: 14px; margin-bottom: 4px;">Event</div>
@@ -95,6 +98,11 @@ export function generateMeetingDetailsCard(options: {
 			<div style="margin-bottom: 12px;">
 				<div style="color: #6b7280; font-size: 14px; margin-bottom: 4px;">Time</div>
 				<div style="color: #111827; font-size: 16px; font-weight: 500;">${formattedTime}</div>
+			</div>
+
+			<div style="${meetingUrl ? 'margin-bottom: 12px;' : ''}">
+				<div style="color: #6b7280; font-size: 14px; margin-bottom: 4px;">Address</div>
+				<div style="color: #111827; font-size: 16px; font-weight: 500;">${BUSINESS_ADDRESS}</div>
 			</div>
 
 			${meetingUrl ? `
