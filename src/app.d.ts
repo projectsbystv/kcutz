@@ -13,7 +13,7 @@ declare global {
 				BASE_URL: string;
 				APP_URL?: string;
 				ADMIN_EMAIL?: string;
-				EMAILIT_API_KEY?: string;
+				RESEND_API_KEY?: string;
 				EMAIL_FROM?: string;
 				TURNSTILE_SECRET_KEY?: string;
 				CRON_SECRET?: string;

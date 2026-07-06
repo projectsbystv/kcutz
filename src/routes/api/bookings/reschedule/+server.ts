@@ -186,7 +186,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 		await env.KV.delete(`availability:${originalBooking.event_slug}:${newDateStr}`);
 
 		// Send reschedule email (not cancellation email!)
-		if (env.EMAILIT_API_KEY) {
+		if (env.RESEND_API_KEY) {
 			try {
 				// Parse user settings for time format
 				let timeFormat: '12h' | '24h' = '12h';
@@ -225,7 +225,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 							attendeeNotes: originalBooking.attendee_notes
 						},
 						{
-							apiKey: env.EMAILIT_API_KEY,
+							apiKey: env.RESEND_API_KEY,
 							from: env.EMAIL_FROM || originalBooking.host_email,
 							replyTo: replyToEmail
 						},
@@ -257,7 +257,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 						},
 						originalBooking.host_email,
 						{
-							apiKey: env.EMAILIT_API_KEY,
+							apiKey: env.RESEND_API_KEY,
 							from: env.EMAIL_FROM || originalBooking.host_email
 						}
 					);

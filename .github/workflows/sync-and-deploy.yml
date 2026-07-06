@@ -191,7 +191,7 @@ jobs:
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          EMAILIT_API_KEY: ${{ secrets.EMAILIT_API_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
           CRON_SECRET: ${{ secrets.CRON_SECRET }}
           MICROSOFT_CLIENT_ID: ${{ secrets.MICROSOFT_CLIENT_ID }}
@@ -206,7 +206,7 @@ jobs:
           GOOGLE_CLIENT_ID = "$GOOGLE_CLIENT_ID"
           GOOGLE_CLIENT_SECRET = "$GOOGLE_CLIENT_SECRET"
           JWT_SECRET = "$JWT_SECRET"
-          EMAILIT_API_KEY = "$EMAILIT_API_KEY"
+          RESEND_API_KEY = "$RESEND_API_KEY"
           EMAIL_FROM = "$EMAIL_FROM"
           CRON_SECRET = "$CRON_SECRET"
           MICROSOFT_CLIENT_ID = "$MICROSOFT_CLIENT_ID"

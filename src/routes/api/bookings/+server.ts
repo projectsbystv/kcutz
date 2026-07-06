@@ -227,8 +227,8 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 		const cacheKey = `availability:${eventSlug}:${dateStr}`;
 		await env.KV.delete(cacheKey);
 
-		// Send booking confirmation email via Emailit (if enabled)
-		if (env.EMAILIT_API_KEY) {
+		// Send booking confirmation email via Resend (if enabled)
+		if (env.RESEND_API_KEY) {
 			try {
 				// Parse user settings for time format
 				let timeFormat: '12h' | '24h' = '12h';
@@ -281,7 +281,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 							customMessage: template?.custom_message
 						},
 						{
-							apiKey: env.EMAILIT_API_KEY,
+							apiKey: env.RESEND_API_KEY,
 							from: env.EMAIL_FROM || user.email,
 							replyTo: replyToEmail
 						},
@@ -294,7 +294,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 					emailData,
 					user.contact_email || user.email,
 					{
-						apiKey: env.EMAILIT_API_KEY,
+						apiKey: env.RESEND_API_KEY,
 						from: env.EMAIL_FROM || user.email
 					}
 				);

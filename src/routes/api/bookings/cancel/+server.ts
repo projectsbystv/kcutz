@@ -124,7 +124,7 @@ export const POST = async (event: RequestEvent) => {
 			.run();
 
 		// Send cancellation email if enabled
-		if (env.EMAILIT_API_KEY) {
+		if (env.RESEND_API_KEY) {
 			try {
 				// Parse user settings for time format
 				let timeFormat: '12h' | '24h' = '12h';
@@ -161,7 +161,7 @@ export const POST = async (event: RequestEvent) => {
 							brandColor: booking.brand_color || undefined
 						},
 						{
-							apiKey: env.EMAILIT_API_KEY,
+							apiKey: env.RESEND_API_KEY,
 							from: env.EMAIL_FROM || booking.host_email,
 							replyTo: replyToEmail
 						},

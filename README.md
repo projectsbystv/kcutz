@@ -62,7 +62,7 @@ Add these secrets (click "New repository secret" for each one):
 | `APP_URL` | Yes | Your app URL (e.g., `https://YOUR-PROJECT.pages.dev` or your custom domain) |
 | `GOOGLE_CLIENT_ID` | Yes | From step 2 (ends with `.apps.googleusercontent.com`) |
 | `GOOGLE_CLIENT_SECRET` | Yes | From step 2 |
-| `EMAILIT_API_KEY` | No | [Emailit](https://emailit.com) API key for booking emails |
+| `RESEND_API_KEY` | No | [Resend](https://resend.com) API key for booking emails |
 | `EMAIL_FROM` | No | From address (e.g., `noreply@yourdomain.com`) |
 | `CRON_SECRET` | No | Secures reminder endpoint ([generate one](https://generate-secret.vercel.app/32)) |
 | `MICROSOFT_CLIENT_ID` | No | For Outlook Calendar integration (see below) |
