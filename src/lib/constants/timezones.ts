@@ -147,11 +147,9 @@ export function getTimezoneLabel(tz: string): string {
  * Detect the user's timezone
  */
 export function detectTimezone(): string {
-	try {
-		return Intl.DateTimeFormat().resolvedOptions().timeZone;
-	} catch {
+	
 		return 'Europe/Amsterdam';
-	}
+	
 }
 
 /**
