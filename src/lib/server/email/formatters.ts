@@ -13,7 +13,7 @@ export interface EmailFormatters {
 /**
  * Create formatters based on user preferences
  */
-export function createEmailFormatters(timeFormat: '12h' | '24h' = '12h', timezone: string = 'Europe/Berlin'): EmailFormatters {
+export function createEmailFormatters(timeFormat: '12h' | '24h' = '12h', timezone?: string): EmailFormatters {
 	const formatDate = (date: Date): string => {
 		return new Intl.DateTimeFormat('en-US', {
 			weekday: 'long',
@@ -21,7 +21,7 @@ export function createEmailFormatters(timeFormat: '12h' | '24h' = '12h', timezon
 			month: 'long',
 			day: 'numeric',
 			timeZone: timezone
-		}).format(new Date(date));
+		}).format(date);
 	};
 
 	const formatTime = (date: Date): string => {
@@ -31,7 +31,7 @@ export function createEmailFormatters(timeFormat: '12h' | '24h' = '12h', timezon
 			hour12: timeFormat === '12h',
 			timeZoneName: 'short',
 			timeZone: timezone
-		}).format(new Date(date));
+		}).format(date);
 	};
 
 	const formatDateTime = (date: Date): string => {
@@ -45,7 +45,7 @@ export function createEmailFormatters(timeFormat: '12h' | '24h' = '12h', timezon
 			hour12: timeFormat === '12h',
 			timeZoneName: 'short',
 			timeZone: timezone
-		}).format(new Date(date));
+		}).format(date);
 	};
 
 	return { formatDate, formatTime, formatDateTime };
@@ -59,8 +59,7 @@ export function replaceSubjectVariables(subject: string, data: BookingEmailData)
 		return new Intl.DateTimeFormat('en-US', {
 			weekday: 'short',
 			month: 'short',
-			day: 'numeric',
-			timeZone: 'Europe/Berlin'
+			day: 'numeric'
 		}).format(date);
 	};
 
@@ -68,8 +67,7 @@ export function replaceSubjectVariables(subject: string, data: BookingEmailData)
 		return new Intl.DateTimeFormat('en-US', {
 			hour: 'numeric',
 			minute: '2-digit',
-			hour12: true,
-			timeZone: 'Europe/Berlin'
+			hour12: true
 		}).format(date);
 	};
 

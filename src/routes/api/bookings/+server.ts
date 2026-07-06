@@ -10,29 +10,6 @@ import { createOutlookCalendarEvent, getValidOutlookAccessToken } from '$lib/ser
 import { sendBookingEmail, sendAdminNotificationEmail, getEmailTemplates, isEmailEnabled, type EmailTemplateType } from '$lib/server/email';
 import { isValidEmail, validateLength, validateFields, MAX_LENGTHS } from '$lib/server/validation';
 
-/**
- * Format a Date as local wall-clock time (without Z/offset) for a given IANA timezone.
- * Example: 2026-07-17T10:00:00.000Z + 'Europe/Berlin' → "2026-07-17T12:00:00"
- * Sending this together with the timeZone field makes calendar invites
- * display the time in the host's timezone instead of UTC.
- */
-function toLocalDateTime(date: Date, timeZone: string): string {
-	const parts = new Intl.DateTimeFormat('en-CA', {
-		timeZone,
-		year: 'numeric',
-		month: '2-digit',
-		day: '2-digit',
-		hour: '2-digit',
-		minute: '2-digit',
-		second: '2-digit',
-		hour12: false
-	}).formatToParts(date);
-	const get = (type: string) => parts.find((p) => p.type === type)?.value ?? '00';
-	// Intl can return "24" for midnight in some environments – normalize to "00"
-	const hour = get('hour') === '24' ? '00' : get('hour');
-	return `${get('year')}-${get('month')}-${get('day')}T${hour}:${get('minute')}:${get('second')}`;
-}
-
 export const POST: RequestHandler = async ({ request, platform }) => {
 	const env = platform?.env;
 	if (!env) {
@@ -172,12 +149,12 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 					summary: `${eventType.name} with ${attendeeName}`,
 					description: `${eventType.description || ''}\n\nAttendee: ${attendeeName} (${attendeeEmail})${notes ? `\n\nNotes from attendee:\n${notes}` : ''}`,
 					start: {
-						dateTime: toLocalDateTime(startDateTime, 'Europe/Berlin'),
-						timeZone: HOST_TIMEZONE
+						dateTime: startDateTime.toISOString(),
+						timeZone: 'Europe/Berlin'
 					},
 					end: {
-						dateTime: toLocalDateTime(endDateTime, 'Europe/Berlin'),
-						timeZone: HOST_TIMEZONE
+						dateTime: endDateTime.toISOString(),
+						timeZone: 'Europe/Berlin'
 					},
 					attendees: [
 						{ email: attendeeEmail }
