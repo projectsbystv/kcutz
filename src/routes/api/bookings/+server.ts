@@ -267,7 +267,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 					hostContactEmail: user.contact_email || undefined,
 					appUrl: env.APP_URL || '',
 					timeFormat,
-					timezone: timezone || 'UTC',
+					timezone: 'Europe/Berlin',
 					brandColor: user.brand_color || undefined,
 					attendeeNotes: notes || undefined
 				};
