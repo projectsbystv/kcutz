@@ -156,11 +156,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 					end: {
 						dateTime: toLocalDateTime(endDateTime, 'Europe/Berlin'),
 						timeZone: 'Europe/Berlin'
-					},
-					attendees: [
-						{ email: attendeeEmail }
-					]
-					
+					}
 				});
 
 				googleEventId = calendarEvent.id;

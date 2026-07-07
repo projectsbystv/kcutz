@@ -134,10 +134,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 				end: {
 					dateTime: toLocalDateTime(newEndDateTime, 'Europe/Berlin'),
 					timeZone: 'Europe/Berlin'
-				},
-				attendees: [
-					{ email: originalBooking.attendee_email }
-				]
+				}
 			});
 
 			newCalendarEventId = calendarEvent.id;

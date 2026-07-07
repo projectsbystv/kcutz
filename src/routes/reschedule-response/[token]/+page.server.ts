@@ -167,10 +167,7 @@ export const actions: Actions = {
 					end: {
 						dateTime: toLocalDateTime(new Date(proposal.proposed_end_time), 'Europe/Berlin'),
 						timeZone: 'Europe/Berlin'
-					},
-					attendees: [
-						{ email: proposal.attendee_email }
-					]
+					}
 				});
 
 				newGoogleEventId = calendarEvent.id;
